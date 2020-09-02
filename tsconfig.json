@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "declaration": false,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "target": "ESNext",
+    "module": "ES6",
+    "moduleResolution": "Node"
+  }
+}
