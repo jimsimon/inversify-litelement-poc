@@ -17,7 +17,6 @@ const container = new Container({
 })
 const { lazyInject } = getDecorators(container)
 
-@injectable()
 @customElement('hello-world')
 class HelloWorldElement extends LitElement {
     @lazyInject(HelloWorldService)
