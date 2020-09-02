@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 
-import { Container, injectable, interfaces } from "inversify";
+import { Container, injectable } from "inversify";
 import { LitElement, html, customElement } from 'lit-element'
 import getDecorators from "inversify-inject-decorators";
 
@@ -22,10 +22,6 @@ const { lazyInject } = getDecorators(container)
 class HelloWorldElement extends LitElement {
     @lazyInject(HelloWorldService)
     private service: HelloWorldService
-
-    static getService<T>(constructorFunction: interfaces.Newable<T>) {
-        return container.resolve(constructorFunction)
-    }
 
     render() {
         return html`<p>Hello World</p><button @click="${this.service.sayHi}">Click Me</button>`
