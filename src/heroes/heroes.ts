@@ -1,7 +1,8 @@
 import {LitElement, html, customElement} from "lit-element";
 import {HeroService} from "../hero-service";
-import { lazyInject } from "../container";
+import {lazyInject} from "../container";
 import {Hero} from "../hero";
+import styles from './heroes.css'
 
 @customElement('app-heroes')
 class HeroesElement extends LitElement {
@@ -15,9 +16,10 @@ class HeroesElement extends LitElement {
         this.getHeroes()
     }
 
+    static styles = [styles]
+
     render() {
-        html`
-            <link rel="stylesheet" href="./heroes.css">
+        return html`
             <h2>My Heroes</h2>
             <div>
                 <label>Hero name:
@@ -57,8 +59,10 @@ class HeroesElement extends LitElement {
         const input = document.querySelector('input')
         let name = input.value
         name = name.trim();
-        if (!name) { return; }
-        this.heroService.addHero({ name } as Hero)
+        if (!name) {
+            return;
+        }
+        this.heroService.addHero({name} as Hero)
             .subscribe(hero => {
                 this.heroes.push(hero);
             });

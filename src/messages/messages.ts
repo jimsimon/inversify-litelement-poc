@@ -1,17 +1,19 @@
 import {customElement, LitElement, html} from "lit-element";
 import {MessageService} from "../message-service";
-import { lazyInject } from "../container";
+import {lazyInject} from "../container";
+import styles from './messages.css'
 
 @customElement('app-messages')
 class MessagesElement extends LitElement {
     @lazyInject(MessageService)
     private messageService: MessageService
 
+    static styles = [styles]
+
     render() {
-        html `
-            <link rel="stylesheet" href="./messages.css">
+        return html`
             ${this.messageService.messages.length ?
-                html`
+            html`
                     <div>
                         <h2>Messages</h2>
                         <button class="clear"
@@ -19,7 +21,7 @@ class MessagesElement extends LitElement {
                         ${this.messageService.messages.map((message) => html`<div> ${message} </div>`)}
                     </div>
                 ` : null
-            }
+        }
         `
     }
 }

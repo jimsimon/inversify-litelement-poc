@@ -1,9 +1,10 @@
-import {customElement, LitElement, html} from "lit-element";
+import {customElement, LitElement, html, internalProperty} from "lit-element";
 import {Observable, Subject} from "rxjs";
 import {Hero} from "../hero";
 import {HeroService} from "../hero-service";
 import {debounceTime, distinctUntilChanged, switchMap, takeUntil} from "rxjs/operators";
-import { lazyInject } from "../container";
+import {lazyInject} from "../container";
+import styles from './hero-search.css'
 
 @customElement('app-hero-search')
 export class HeroSearchElement extends LitElement {
@@ -11,7 +12,9 @@ export class HeroSearchElement extends LitElement {
     @lazyInject(HeroService)
     private heroService: HeroService
     heroes$: Observable<Hero[]>;
-    heroes: Hero[]
+
+    @internalProperty()
+    heroes: Hero[] = []
     private searchTerms = new Subject<string>();
 
     connectedCallback(): void {
@@ -36,9 +39,10 @@ export class HeroSearchElement extends LitElement {
         this.unsubscribe$.complete()
     }
 
+    static styles = [styles]
+
     render() {
-        html`
-            <link rel="stylesheet" href="./hero-search.css">
+        return html`
             <div id="search-component">
                 <h4><label for="search-box">Hero Search</label></h4>
                 <input id="search-box" @input="${this.search}" />
@@ -50,7 +54,7 @@ export class HeroSearchElement extends LitElement {
     }
 
     renderHeroes() {
-        this.heroes.map((hero) => {
+        return this.heroes.map((hero) => {
             return html`
                 <li>
                     <a href="/detail/${hero.id}">

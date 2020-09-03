@@ -1,31 +1,29 @@
 import 'reflect-metadata'
 
-import './hmr'
+// import './hmr'
 import './dashboard/dashboard'
 import './hero-detail/hero-detail'
 import './hero-search/hero-search'
 import './heroes/heroes'
 import './messages/messages'
-import { render } from 'lit-html'
+import './application'
+import {worker} from './mocks/browser'
+import {render} from 'lit-html'
 import router from './router'
-import { TemplateResult, html } from 'lit-element'
+import {TemplateResult, html} from 'lit-element'
+
+worker.start()
 
 router.on('route', async (args: any, routing: Promise<TemplateResult>) => {
     const view = await routing
     if (view) {
         render(html`
-            <link rel="stylesheet" href="./index.css">
-            <h1>Tour of Heroes</h1>
-            <nav>
-              <a href="/dashboard">Dashboard</a>
-              <a href="/heroes">Heroes</a>
-            </nav>
-            ${await routing}
-            <app-messages></app-messages>
+            <app-root>
+                ${await routing}
+            </app-root>
         `, document.body)
     }
 }).start()
-
 
 // @ts-ignore
 if (module.hot) {

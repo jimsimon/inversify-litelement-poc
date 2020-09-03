@@ -11,4 +11,4 @@ export const container = new Container({
 container.bind(HeroService).toSelf().inSingletonScope()
 container.bind(MessageService).toSelf().inSingletonScope()
 
-export const { lazyInject } = getDecorators(container)
+export const {lazyInject} = getDecorators(container)

@@ -1,4 +1,4 @@
-import { TemplateResult, html } from 'lit-element'
+import {TemplateResult, html} from 'lit-element'
 import Router from 'middle-router'
 
 interface RouteParams {

@@ -1,9 +1,9 @@
 import {from, Observable, of} from 'rxjs';
-import { fromFetch } from 'rxjs/fetch';
+import {fromFetch} from 'rxjs/fetch';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
 
-import { Hero } from './hero';
-import { MessageService } from './message-service';
+import {Hero} from './hero';
+import {MessageService} from './message-service';
 import {injectable} from "inversify";
 
 @injectable()
@@ -12,11 +12,12 @@ export class HeroService {
     private heroesUrl = 'api/heroes';  // URL to web api
 
     httpOptions = {
-        headers: new Headers({ 'Content-Type': 'application/json' })
+        headers: new Headers({'Content-Type': 'application/json'})
     };
 
     constructor(
-        private messageService: MessageService) { }
+        private messageService: MessageService) {
+    }
 
     /** GET heroes from the server */
     getHeroes(): Observable<Hero[]> {
@@ -28,7 +29,7 @@ export class HeroService {
                         return response.json();
                     } else {
                         // Server is returning a status requiring the client to try something else.
-                        return of({ error: true, message: `Error ${response.status}` });
+                        return of({error: true, message: `Error ${response.status}`});
                     }
                 }),
                 tap(_ => this.log('fetched heroes')),
@@ -47,7 +48,7 @@ export class HeroService {
                         return response.json();
                     } else {
                         // Server is returning a status requiring the client to try something else.
-                        return of({ error: true, message: `Error ${response.status}` });
+                        return of({error: true, message: `Error ${response.status}`});
                     }
                 }),
                 map(heroes => heroes[0]), // returns a {0|1} element array
@@ -69,7 +70,7 @@ export class HeroService {
                     return response.json();
                 } else {
                     // Server is returning a status requiring the client to try something else.
-                    return of({ error: true, message: `Error ${response.status}` });
+                    return of({error: true, message: `Error ${response.status}`});
                 }
             }),
             tap(_ => this.log(`fetched hero id=${id}`)),
@@ -90,7 +91,7 @@ export class HeroService {
                     return response.json();
                 } else {
                     // Server is returning a status requiring the client to try something else.
-                    return of({ error: true, message: `Error ${response.status}` });
+                    return of({error: true, message: `Error ${response.status}`});
                 }
             }),
             tap(x => x.length ?
@@ -114,7 +115,7 @@ export class HeroService {
                     return response.json();
                 } else {
                     // Server is returning a status requiring the client to try something else.
-                    return of({ error: true, message: `Error ${response.status}` });
+                    return of({error: true, message: `Error ${response.status}`});
                 }
             }),
             tap((newHero: Hero) => this.log(`added hero w/ id=${newHero.id}`)),
@@ -134,7 +135,7 @@ export class HeroService {
                     return response.json();
                 } else {
                     // Server is returning a status requiring the client to try something else.
-                    return of({ error: true, message: `Error ${response.status}` });
+                    return of({error: true, message: `Error ${response.status}`});
                 }
             }),
             tap(_ => this.log(`deleted hero id=${id}`)),
@@ -154,7 +155,7 @@ export class HeroService {
                     return response.json();
                 } else {
                     // Server is returning a status requiring the client to try something else.
-                    return of({ error: true, message: `Error ${response.status}` });
+                    return of({error: true, message: `Error ${response.status}`});
                 }
             }),
             tap(_ => this.log(`updated hero id=${hero.id}`)),

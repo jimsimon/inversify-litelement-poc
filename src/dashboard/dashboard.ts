@@ -1,22 +1,24 @@
-import { customElement, LitElement, html, css, property } from "lit-element";
-import { Hero } from "../hero";
+import {customElement, LitElement, html, css, property, internalProperty} from "lit-element";
+import {Hero} from "../hero";
 import {HeroService} from "../hero-service";
-import { lazyInject } from "../container";
+import {lazyInject} from "../container";
+import styles from "./dashboard.css";
 
 @customElement('app-dashboard')
 class DashboardElement extends LitElement {
     @lazyInject(HeroService)
     private heroService: HeroService
 
-    @property()
+    @internalProperty()
     heroes: Hero[] = []
+
+    static styles = [styles]
 
     render() {
         return html`
-            <link rel="stylesheet" href="./dashboard.css">
             <h3>Top Heroes</h3>
             <div class="grid grid-pad">
-              ${this.renderHeroes()}
+              ${this.renderHeroes(this.heroes)}
             </div>
             
             <app-hero-search></app-hero-search>
@@ -33,8 +35,8 @@ class DashboardElement extends LitElement {
             .subscribe(heroes => this.heroes = heroes.slice(1, 5));
     }
 
-    renderHeroes() {
-        this.heroes.map(this.renderHero)
+    renderHeroes(heroes: Hero[]) {
+        return heroes.map(this.renderHero)
     }
 
     renderHero(hero: Hero) {
