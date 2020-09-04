@@ -2,6 +2,7 @@ import {customElement, LitElement, property, html} from "lit-element";
 import {Hero} from "../hero";
 import {HeroService} from "../hero-service";
 import {lazyInject} from "../container";
+import globalStyles from '../global-styles.css'
 import styles from './hero-detail.css'
 import {RouterService} from "../router-service";
 
@@ -19,7 +20,7 @@ class HeroDetailElement extends LitElement {
     @property()
     heroId: number
 
-    static styles = [styles]
+    static styles = [globalStyles, styles]
 
     render() {
         return this.hero ? this.renderHero() : null

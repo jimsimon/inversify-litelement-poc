@@ -1,6 +1,7 @@
 import {customElement, LitElement, html, internalProperty} from "lit-element";
 import {MessageService} from "../message-service";
 import {lazyInject} from "../container";
+import globalStyles from '../global-styles.css'
 import styles from './messages.css'
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
@@ -10,7 +11,7 @@ class MessagesElement extends LitElement {
     @lazyInject(MessageService)
     private messageService: MessageService
 
-    static styles = [styles]
+    static styles = [globalStyles, styles]
 
     private unsubscribe$ = new Subject<void>();
 

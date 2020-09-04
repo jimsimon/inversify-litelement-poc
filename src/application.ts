@@ -1,4 +1,5 @@
 import {customElement, html, LitElement} from "lit-element";
+import globalStyles from './global-styles.css'
 import styles from './application.css'
 import { lazyInject } from "./container";
 import {RouterService} from "./router-service";
@@ -8,7 +9,7 @@ class ApplicationElement extends LitElement {
     @lazyInject(RouterService)
     private router: RouterService;
 
-    static styles = [styles]
+    static styles = [globalStyles, styles]
 
     render() {
         return html`

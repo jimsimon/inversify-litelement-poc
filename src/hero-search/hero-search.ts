@@ -4,6 +4,7 @@ import {Hero} from "../hero";
 import {HeroService} from "../hero-service";
 import {debounceTime, distinctUntilChanged, switchMap, takeUntil} from "rxjs/operators";
 import {lazyInject} from "../container";
+import globalStyles from '../global-styles.css'
 import styles from './hero-search.css'
 import {RouterService} from "../router-service";
 
@@ -44,7 +45,7 @@ export class HeroSearchElement extends LitElement {
         this.unsubscribe$.complete()
     }
 
-    static styles = [styles]
+    static styles = [globalStyles, styles]
 
     render() {
         return html`
