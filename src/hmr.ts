@@ -1,11 +1,7 @@
-import {applyPolyfill} from 'custom-elements-hmr-polyfill'
+import { applyPolyfill, ReflowStrategy } from 'custom-elements-hmr-polyfill'
 
-applyPolyfill()
-
-//  reset the root to trigger rerender after the HMR event
-// if (document.body) {
-//     requestAnimationFrame(() => {
-//         document.body.innerHTML = '';
-//         document.body.innerHTML = '<app-root></app-root>';
-//     });
-// }
+applyPolyfill(
+    // resets the body's innerHTML, thus rerenders all elements
+    // but doesn't call all lifecycle methods in a standard way (less calls)
+    ReflowStrategy.RERENDER_INNER_HTML
+)

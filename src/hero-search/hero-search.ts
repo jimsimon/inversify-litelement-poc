@@ -10,16 +10,19 @@ import {RouterService} from "../router-service";
 
 @customElement('app-hero-search')
 export class HeroSearchElement extends LitElement {
-    private unsubscribe$ = new Subject<void>();
+    static styles = [globalStyles, styles]
+
     @lazyInject(HeroService)
     private heroService: HeroService
-    heroes$: Observable<Hero[]>;
 
     @lazyInject(RouterService)
     private router: RouterService
 
     @internalProperty()
-    heroes: Hero[] = []
+    private heroes: Hero[] = []
+
+    private heroes$: Observable<Hero[]>;
+    private unsubscribe$ = new Subject<void>();
     private searchTerms = new Subject<string>();
 
     connectedCallback(): void {
@@ -44,8 +47,6 @@ export class HeroSearchElement extends LitElement {
         this.unsubscribe$.next()
         this.unsubscribe$.complete()
     }
-
-    static styles = [globalStyles, styles]
 
     render() {
         return html`

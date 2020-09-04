@@ -8,6 +8,8 @@ import {RouterService} from "../router-service";
 
 @customElement('app-heroes')
 class HeroesElement extends LitElement {
+    static styles = [globalStyles, styles]
+
     @lazyInject(HeroService)
     private heroService: HeroService
 
@@ -15,14 +17,12 @@ class HeroesElement extends LitElement {
     private router: RouterService
 
     @internalProperty()
-    heroes: Hero[] = [];
+    private heroes: Hero[] = [];
 
     connectedCallback() {
         super.connectedCallback();
         this.getHeroes()
     }
-
-    static styles = [globalStyles, styles]
 
     render() {
         return html`

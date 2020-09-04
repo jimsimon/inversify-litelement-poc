@@ -1,4 +1,4 @@
-import {customElement, LitElement, property, html} from "lit-element";
+import {customElement, LitElement, property, html, internalProperty} from "lit-element";
 import {Hero} from "../hero";
 import {HeroService} from "../hero-service";
 import {lazyInject} from "../container";
@@ -8,19 +8,19 @@ import {RouterService} from "../router-service";
 
 @customElement('app-hero-detail')
 class HeroDetailElement extends LitElement {
+    static styles = [globalStyles, styles]
+
+    @property()
+    heroId: number
+
     @lazyInject(HeroService)
     private heroService: HeroService
 
     @lazyInject(RouterService)
     private router: RouterService
 
-    @property()
-    hero: Hero
-
-    @property()
-    heroId: number
-
-    static styles = [globalStyles, styles]
+    @internalProperty()
+    private hero: Hero
 
     render() {
         return this.hero ? this.renderHero() : null

@@ -8,15 +8,15 @@ import {takeUntil} from "rxjs/operators";
 
 @customElement('app-messages')
 class MessagesElement extends LitElement {
+    static styles = [globalStyles, styles]
+
     @lazyInject(MessageService)
     private messageService: MessageService
 
-    static styles = [globalStyles, styles]
-
-    private unsubscribe$ = new Subject<void>();
-
     @internalProperty()
     private messages: string[] = [];
+
+    private unsubscribe$ = new Subject<void>();
 
     connectedCallback() {
         super.connectedCallback();

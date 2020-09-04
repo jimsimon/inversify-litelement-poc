@@ -6,10 +6,10 @@ import {RouterService} from "./router-service";
 
 @customElement('app-root')
 class ApplicationElement extends LitElement {
+    static styles = [globalStyles, styles]
+
     @lazyInject(RouterService)
     private router: RouterService;
-
-    static styles = [globalStyles, styles]
 
     render() {
         return html`

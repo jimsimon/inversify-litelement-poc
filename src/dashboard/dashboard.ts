@@ -8,6 +8,8 @@ import {RouterService} from "../router-service";
 
 @customElement('app-dashboard')
 class DashboardElement extends LitElement {
+    static styles = [globalStyles, styles]
+
     @lazyInject(HeroService)
     private heroService: HeroService
 
@@ -15,9 +17,7 @@ class DashboardElement extends LitElement {
     private router: RouterService
 
     @internalProperty()
-    heroes: Hero[] = []
-
-    static styles = [globalStyles, styles]
+    private heroes: Hero[] = []
 
     render() {
         return html`
