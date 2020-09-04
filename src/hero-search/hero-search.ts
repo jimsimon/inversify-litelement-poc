@@ -5,6 +5,7 @@ import {HeroService} from "../hero-service";
 import {debounceTime, distinctUntilChanged, switchMap, takeUntil} from "rxjs/operators";
 import {lazyInject} from "../container";
 import styles from './hero-search.css'
+import {RouterService} from "../router-service";
 
 @customElement('app-hero-search')
 export class HeroSearchElement extends LitElement {
@@ -12,6 +13,9 @@ export class HeroSearchElement extends LitElement {
     @lazyInject(HeroService)
     private heroService: HeroService
     heroes$: Observable<Hero[]>;
+
+    @lazyInject(RouterService)
+    private router: RouterService
 
     @internalProperty()
     heroes: Hero[] = []
@@ -28,6 +32,7 @@ export class HeroSearchElement extends LitElement {
 
             // switch to new search observable each time the term changes
             switchMap((term: string) => this.heroService.searchHeroes(term)),
+
             takeUntil(this.unsubscribe$)
         )
         this.heroes$.subscribe(heroes => this.heroes = heroes);
@@ -53,11 +58,11 @@ export class HeroSearchElement extends LitElement {
         `
     }
 
-    renderHeroes() {
+    renderHeroes = () => {
         return this.heroes.map((hero) => {
             return html`
                 <li>
-                    <a href="/detail/${hero.id}">
+                    <a @click=${this.router.navigateToHeroDetail.bind(hero.id)}>
                         ${hero.name}
                     </a>
                 </li>

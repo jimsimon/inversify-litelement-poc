@@ -9,7 +9,7 @@ import {injectable} from "inversify";
 @injectable()
 export class HeroService {
 
-    private heroesUrl = 'api/heroes';  // URL to web api
+    private heroesUrl = '/api/heroes';  // URL to web api
 
     httpOptions = {
         headers: new Headers({'Content-Type': 'application/json'})

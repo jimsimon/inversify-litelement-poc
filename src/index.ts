@@ -10,7 +10,9 @@ import './application'
 import {worker} from './mocks/browser'
 import {render} from 'lit-html'
 import router from './router'
+import {container} from './container'
 import {TemplateResult, html} from 'lit-element'
+import Router from 'middle-router'
 
 worker.start()
 
@@ -19,7 +21,7 @@ router.on('route', async (args: any, routing: Promise<TemplateResult>) => {
     if (view) {
         render(html`
             <app-root>
-                ${await routing}
+                ${view}
             </app-root>
         `, document.body)
     }

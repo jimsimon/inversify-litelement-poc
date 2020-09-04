@@ -1,14 +1,12 @@
 import {injectable} from "inversify";
+import {Subject} from "rxjs";
 
 @injectable()
 export class MessageService {
-    messages: string[] = [];
+
+    messages = new Subject<string>();
 
     add(message: string) {
-        this.messages.push(message);
-    }
-
-    clear() {
-        this.messages = [];
+        this.messages.next(message);
     }
 }

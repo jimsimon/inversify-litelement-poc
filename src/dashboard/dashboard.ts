@@ -3,11 +3,15 @@ import {Hero} from "../hero";
 import {HeroService} from "../hero-service";
 import {lazyInject} from "../container";
 import styles from "./dashboard.css";
+import {RouterService} from "../router-service";
 
 @customElement('app-dashboard')
 class DashboardElement extends LitElement {
     @lazyInject(HeroService)
     private heroService: HeroService
+
+    @lazyInject(RouterService)
+    private router: RouterService
 
     @internalProperty()
     heroes: Hero[] = []
@@ -39,9 +43,9 @@ class DashboardElement extends LitElement {
         return heroes.map(this.renderHero)
     }
 
-    renderHero(hero: Hero) {
+    renderHero = (hero: Hero) => {
         return html`
-            <a class="col-1-4" href="/detail/${hero.id}">
+            <a class="col-1-4" @click=${this.router.navigateToHeroDetail.bind(this, hero.id)}>
                 <div class="module hero">
                     <h4>${hero.name}</h4>
                 </div>

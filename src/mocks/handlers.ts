@@ -43,7 +43,8 @@ export const handlers = [
         return res(
             ctx.status(404)
         )
-    })
+    }),
+    // rest.delete()
 ]
 
 function genId(heroes: Hero[]): number {

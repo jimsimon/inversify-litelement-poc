@@ -2,13 +2,16 @@ import {customElement, LitElement, property, html} from "lit-element";
 import {Hero} from "../hero";
 import {HeroService} from "../hero-service";
 import {lazyInject} from "../container";
-import router from '../router'
 import styles from './hero-detail.css'
+import {RouterService} from "../router-service";
 
 @customElement('app-hero-detail')
 class HeroDetailElement extends LitElement {
     @lazyInject(HeroService)
     private heroService: HeroService
+
+    @lazyInject(RouterService)
+    private router: RouterService
 
     @property()
     hero: Hero
@@ -19,20 +22,20 @@ class HeroDetailElement extends LitElement {
     static styles = [styles]
 
     render() {
-        html`${this.hero ? this.renderHero : null}`
+        return this.hero ? this.renderHero() : null
     }
 
     renderHero() {
         return html`
             <div>
                 <h2>${this.hero.name.toUpperCase()} Details</h2>
-                <div><span>id: </span>{{hero.id}}</div>
+                <div><span>id: </span>${this.hero.id}</div>
                 <div>
                     <label>name:
-                        <input value"${this.hero.name}" placeholder="name"/>
+                        <input value="${this.hero.name}" placeholder="name"/>
                     </label>
                 </div>
-                <button @click="${this.goBack}">go back</button>
+                <button @click="${this.router.goBack}">go back</button>
                 <button @click="${this.save}">save</button>
             </div>
         `
@@ -48,12 +51,8 @@ class HeroDetailElement extends LitElement {
             .subscribe(hero => this.hero = hero);
     }
 
-    goBack(): void {
-        router.back()
-    }
-
     save(): void {
         this.heroService.updateHero(this.hero)
-            .subscribe(() => this.goBack());
+            .subscribe(() => this.router.goBack());
     }
 }

@@ -7,9 +7,8 @@ interface RouteParams {
 }
 
 const router = Router()
-    .use('', async ({resolve}: RouteParams) => {
-        // router.navigate('/dashboard')
-        resolve(html`<app-dashboard></app-dashboard>`)
+    .use('/', async ({resolve}: RouteParams) => {
+        resolve(await router.navigate('/dashboard'))
     })
     .use('/dashboard', async ({resolve}: RouteParams) => {
         resolve(html`<app-dashboard></app-dashboard>`)
@@ -17,7 +16,7 @@ const router = Router()
     .use('/detail/:id', async ({params, resolve}: RouteParams) => {
         resolve(html`<app-hero-detail heroId="${params.id}"></app-hero-detail>`)
     })
-    .use('heroes', async ({resolve}: RouteParams) => {
+    .use('/heroes', async ({resolve}: RouteParams) => {
         resolve(html`<app-heroes></app-heroes>`)
     })
 

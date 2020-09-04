@@ -1,15 +1,20 @@
-import {LitElement, html, customElement} from "lit-element";
+import {LitElement, html, customElement, internalProperty} from "lit-element";
 import {HeroService} from "../hero-service";
 import {lazyInject} from "../container";
 import {Hero} from "../hero";
 import styles from './heroes.css'
+import {RouterService} from "../router-service";
 
 @customElement('app-heroes')
 class HeroesElement extends LitElement {
     @lazyInject(HeroService)
     private heroService: HeroService
 
-    heroes: Hero[];
+    @lazyInject(RouterService)
+    private router: RouterService
+
+    @internalProperty()
+    heroes: Hero[] = [];
 
     connectedCallback() {
         super.connectedCallback();
@@ -36,11 +41,11 @@ class HeroesElement extends LitElement {
         `
     }
 
-    renderHeroes() {
+    renderHeroes = () => {
         return this.heroes.map((hero) => {
             return html`
                 <li>
-                    <a href="/detail/${hero.id}">
+                    <a @click=${this.router.navigateToHeroDetail.bind(this, hero.id)}>
                         <span class="badge">${hero.id}</span> ${hero.name}
                     </a>
                     <button class="delete" title="delete hero"
