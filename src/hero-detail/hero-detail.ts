@@ -53,6 +53,7 @@ class HeroDetailElement extends LitElement {
     }
 
     save(): void {
+        this.hero.name = this.shadowRoot.querySelector('input').value
         this.heroService.updateHero(this.hero)
             .subscribe(() => this.router.goBack());
     }

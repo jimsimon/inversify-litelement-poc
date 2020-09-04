@@ -50,7 +50,7 @@ class HeroesElement extends LitElement {
                         <span class="badge">${hero.id}</span> ${hero.name}
                     </a>
                     <button class="delete" title="delete hero"
-                    @click="${this.delete.bind(hero)}">x</button>
+                    @click="${this.delete.bind(this, hero)}">x</button>
                 </li>
             `
         })
@@ -62,7 +62,7 @@ class HeroesElement extends LitElement {
     }
 
     add(): void {
-        const input = document.querySelector('input')
+        const input = this.shadowRoot.querySelector('input')
         let name = input.value
         name = name.trim();
         if (!name) {
@@ -70,7 +70,10 @@ class HeroesElement extends LitElement {
         }
         this.heroService.addHero({name} as Hero)
             .subscribe(hero => {
-                this.heroes.push(hero);
+                this.heroes = [
+                    ...this.heroes,
+                    hero
+                ]
             });
         input.value = ''
     }

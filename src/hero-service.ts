@@ -107,7 +107,8 @@ export class HeroService {
     addHero(hero: Hero): Observable<Hero> {
         return fromFetch(this.heroesUrl, {
             ...this.httpOptions,
-            body: JSON.stringify(hero)
+            body: JSON.stringify(hero),
+            method: 'POST'
         }).pipe(
             switchMap(response => {
                 if (response.ok) {
@@ -128,7 +129,10 @@ export class HeroService {
         const id = typeof hero === 'number' ? hero : hero.id;
         const url = `${this.heroesUrl}/${id}`;
 
-        return fromFetch(url, this.httpOptions).pipe(
+        return fromFetch(url, {
+            ...this.httpOptions,
+            method: "DELETE"
+        }).pipe(
             switchMap(response => {
                 if (response.ok) {
                     // OK return data
@@ -147,7 +151,8 @@ export class HeroService {
     updateHero(hero: Hero): Observable<any> {
         return fromFetch(this.heroesUrl, {
             ...this.httpOptions,
-            body: JSON.stringify(hero)
+            body: JSON.stringify(hero),
+            method: "PUT"
         }).pipe(
             switchMap(response => {
                 if (response.ok) {
